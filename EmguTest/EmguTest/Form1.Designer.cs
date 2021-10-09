@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pic_Result = new System.Windows.Forms.PictureBox();
+            this.pic_Src = new System.Windows.Forms.PictureBox();
             this.pic_Template = new System.Windows.Forms.PictureBox();
             this.cmb_Method = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.chk_Stream_On = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pic_Result)).BeginInit();
+            this.pic_Result = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_Src)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Template)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_Result)).BeginInit();
             this.SuspendLayout();
             // 
-            // pic_Result
+            // pic_Src
             // 
-            this.pic_Result.Location = new System.Drawing.Point(253, 12);
-            this.pic_Result.Name = "pic_Result";
-            this.pic_Result.Size = new System.Drawing.Size(600, 651);
-            this.pic_Result.TabIndex = 1;
-            this.pic_Result.TabStop = false;
-            this.pic_Result.Paint += new System.Windows.Forms.PaintEventHandler(this.pic_Result_Paint);
-            this.pic_Result.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pic_Result_MouseDown);
-            this.pic_Result.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pic_Result_MouseMove);
-            this.pic_Result.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pic_Result_MouseUp);
+            this.pic_Src.Location = new System.Drawing.Point(253, 12);
+            this.pic_Src.Name = "pic_Src";
+            this.pic_Src.Size = new System.Drawing.Size(600, 651);
+            this.pic_Src.TabIndex = 1;
+            this.pic_Src.TabStop = false;
+            this.pic_Src.Paint += new System.Windows.Forms.PaintEventHandler(this.pic_Result_Paint);
+            this.pic_Src.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pic_Result_MouseDown);
+            this.pic_Src.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pic_Result_MouseMove);
+            this.pic_Src.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pic_Result_MouseUp);
             // 
             // pic_Template
             // 
@@ -109,45 +109,45 @@
             this.chk_Stream_On.UseVisualStyleBackColor = true;
             this.chk_Stream_On.CheckedChanged += new System.EventHandler(this.chk_Stream_On_CheckedChanged);
             // 
-            // pictureBox1
+            // pic_Result
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(859, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(227, 190);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
+            this.pic_Result.Location = new System.Drawing.Point(859, 12);
+            this.pic_Result.Name = "pic_Result";
+            this.pic_Result.Size = new System.Drawing.Size(227, 190);
+            this.pic_Result.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pic_Result.TabIndex = 7;
+            this.pic_Result.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1469, 675);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pic_Result);
             this.Controls.Add(this.chk_Stream_On);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cmb_Method);
             this.Controls.Add(this.pic_Template);
-            this.Controls.Add(this.pic_Result);
+            this.Controls.Add(this.pic_Src);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pic_Result)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_Src)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Template)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_Result)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pic_Result;
+        private System.Windows.Forms.PictureBox pic_Src;
         private System.Windows.Forms.PictureBox pic_Template;
         private System.Windows.Forms.ComboBox cmb_Method;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox chk_Stream_On;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pic_Result;
     }
 }
 

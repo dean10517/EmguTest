@@ -13,6 +13,8 @@ namespace EmguTest
         string templSrc = "C:\\Users\\柏閔\\Desktop\\S__33857542_template.jpg";
         private VideoCapture usbCam;
         private Mat currFrame;
+        private Mat matTemplate;
+        private Emgu.CV.CvEnum.TemplateMatchingType matchingType = Emgu.CV.CvEnum.TemplateMatchingType.Ccoeff;
 
         public Form1()
         {
@@ -40,15 +42,14 @@ namespace EmguTest
             CvInvoke.Line(copyFrame, p3, p4, new MCvScalar(0, 255, 0, 0));
 
             //將加工後的畫面輸出到pictureBox上
-            pic_Result.Image = copyFrame.ToBitmap();
+            pic_Src.Image = copyFrame.ToBitmap();
 
             //此延遲影響畫面更新率
             Thread.Sleep(100);
         }
 
         private void cmb_Method_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Emgu.CV.CvEnum.TemplateMatchingType matchingType = Emgu.CV.CvEnum.TemplateMatchingType.Ccoeff;
+        {            
             switch (cmb_Method.SelectedIndex)
             {
                 case 0:
@@ -77,35 +78,35 @@ namespace EmguTest
 
             }
 
-            Mat matSrc = new Mat(imgSrcPath);
-            Mat matTemplate = new Mat(templSrc);
-            Mat imgout = new Mat();
+            //Mat matSrc = new Mat(imgSrcPath);
+            //Mat matTemplate = new Mat(templSrc);
+            //Mat imgout = new Mat();
 
-            // To resize the image             
-            Size newSize1 = new Size(matSrc.Size.Width / 10, matSrc.Size.Height / 10);
-            Size newSize2 = new Size(matTemplate.Size.Width / 10, matTemplate.Size.Height / 10);
-            CvInvoke.Resize(matSrc, matSrc, newSize1);
-            CvInvoke.Resize(matTemplate, matTemplate, newSize2);
-            CvInvoke.MatchTemplate(matSrc, matTemplate, imgout, matchingType);
+            //// To resize the image             
+            //Size newSize1 = new Size(matSrc.Size.Width / 10, matSrc.Size.Height / 10);
+            //Size newSize2 = new Size(matTemplate.Size.Width / 10, matTemplate.Size.Height / 10);
+            //CvInvoke.Resize(matSrc, matSrc, newSize1);
+            //CvInvoke.Resize(matTemplate, matTemplate, newSize2);
+            //CvInvoke.MatchTemplate(matSrc, matTemplate, imgout, matchingType);
 
 
-            double minVal = 0.0;
-            double maxVal = 0.0;
-            Point minLoc = new Point();
-            Point maxLoc = new Point();
+            //double minVal = 0.0;
+            //double maxVal = 0.0;
+            //Point minLoc = new Point();
+            //Point maxLoc = new Point();
 
-            pic_Template.Image = imgout.ToBitmap();
-            CvInvoke.MinMaxLoc(imgout, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+            //pic_Template.Image = imgout.ToBitmap();
+            //CvInvoke.MinMaxLoc(imgout, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
 
-            Console.WriteLine(minVal + "," + maxVal);
+            //Console.WriteLine(minVal + "," + maxVal);
 
-            Rectangle r = new Rectangle(maxLoc, matTemplate.Size);
-            CvInvoke.Rectangle(matSrc, r, new MCvScalar(255, 0, 0), 3);
+            //Rectangle r = new Rectangle(maxLoc, matTemplate.Size);
+            //CvInvoke.Rectangle(matSrc, r, new MCvScalar(255, 0, 0), 3);
 
-            Rectangle r2 = new Rectangle(minLoc, matTemplate.Size);
-            CvInvoke.Rectangle(matSrc, r2, new MCvScalar(0, 255, 0), 1);
+            //Rectangle r2 = new Rectangle(minLoc, matTemplate.Size);
+            //CvInvoke.Rectangle(matSrc, r2, new MCvScalar(0, 255, 0), 1);
 
-            pic_Result.Image = matSrc.ToBitmap();
+            //pic_Src.Image = matSrc.ToBitmap();
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -114,7 +115,27 @@ namespace EmguTest
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            Mat matResult = new Mat();
+            CvInvoke.MatchTemplate(currFrame, matTemplate, matResult, matchingType);
 
+
+            double minVal = 0.0;
+            double maxVal = 0.0;
+            Point minLoc = new Point();
+            Point maxLoc = new Point();
+
+            
+            CvInvoke.MinMaxLoc(matResult, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+
+            Console.WriteLine(minVal + "," + maxVal);
+
+            Rectangle r = new Rectangle(maxLoc, matTemplate.Size);
+            Rectangle r2 = new Rectangle(minLoc, matTemplate.Size);
+
+            CvInvoke.Rectangle(currFrame, r, new MCvScalar(255, 0, 0), 3);
+            CvInvoke.Rectangle(currFrame, r2, new MCvScalar(0, 255, 0), 1);
+
+            pic_Result.Image = currFrame.ToBitmap();
 
         }
         private void chk_Stream_On_CheckedChanged(object sender, EventArgs e)
@@ -173,7 +194,7 @@ namespace EmguTest
                 Rectangle r = getRectangle();
                 if (r.Height == 0) return;  //判斷是否有選取矩形
 
-                Mat matTemplate = new Mat(currFrame,r);
+                matTemplate = new Mat(currFrame,r);
                 pic_Template.Image = matTemplate.ToBitmap();
                 e.Graphics.DrawRectangle(Pens.Red, getRectangle());
             }
