@@ -799,11 +799,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\柏閔\\Desktop\\EmguTest\\EmguTest\\EmguTest\\EmguTest.csproj",
+      "projectUniqueName": "D:\\GIT\\EmguTest\\EmguTest\\EmguTest\\EmguTest.csproj",
       "projectName": "EmguTest",
-      "projectPath": "C:\\Users\\柏閔\\Desktop\\EmguTest\\EmguTest\\EmguTest\\EmguTest.csproj",
+      "projectPath": "D:\\GIT\\EmguTest\\EmguTest\\EmguTest\\EmguTest.csproj",
       "packagesPath": "C:\\Users\\柏閔\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\柏閔\\Desktop\\EmguTest\\EmguTest\\EmguTest\\obj\\",
+      "outputPath": "D:\\GIT\\EmguTest\\EmguTest\\EmguTest\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

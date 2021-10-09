@@ -34,8 +34,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.chk_Stream_On = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Result)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Template)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pic_Result
@@ -52,7 +54,7 @@
             // 
             // pic_Template
             // 
-            this.pic_Template.Location = new System.Drawing.Point(859, 12);
+            this.pic_Template.Location = new System.Drawing.Point(12, 148);
             this.pic_Template.Name = "pic_Template";
             this.pic_Template.Size = new System.Drawing.Size(227, 190);
             this.pic_Template.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -77,21 +79,21 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1011, 315);
+            this.button1.Location = new System.Drawing.Point(58, 432);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Test";
+            this.button1.Text = "Grabe";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1129, 315);
+            this.button2.Location = new System.Drawing.Point(58, 481);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
-            this.button2.Text = "Test";
+            this.button2.Text = "Match";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -107,11 +109,21 @@
             this.chk_Stream_On.UseVisualStyleBackColor = true;
             this.chk_Stream_On.CheckedChanged += new System.EventHandler(this.chk_Stream_On_CheckedChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(859, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(227, 190);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1469, 675);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.chk_Stream_On);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -122,6 +134,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pic_Result)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Template)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,6 +147,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox chk_Stream_On;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
