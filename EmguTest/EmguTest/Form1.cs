@@ -1,4 +1,5 @@
 ﻿using Emgu.CV;
+using Emgu.CV.IntensityTransform;
 using Emgu.CV.Structure;
 using System;
 using System.Drawing;
@@ -12,8 +13,23 @@ namespace EmguTest
         string imgSrcPath = "C:\\Users\\柏閔\\Desktop\\S__33857542.jpeg";
         string templSrc = "C:\\Users\\柏閔\\Desktop\\S__33857542_template.jpg";
         private VideoCapture usbCam;
-        private Mat currFrame;
-        private Mat matTemplate;
+        private Mat currFrame = new Mat();      //當前原始影像
+        private Mat matTemplate = new Mat();    //目標影像
+        private Mat matResult = new Mat();      //尋找後結果影像
+        private Mat matGray = new Mat();        //灰階影像
+
+        //Match 所需要的參數
+        private double minVal = 0.0;
+        private double maxVal = 0.0;
+        private Point minLoc = new Point();
+        private Point maxLoc = new Point();
+
+        //搜尋結果的方框繪製參數
+        MCvScalar color1 = new MCvScalar(255, 0, 0);
+        MCvScalar color2 = new MCvScalar(0, 255, 0);
+        Rectangle rect;
+        Rectangle rect2;
+
         private Emgu.CV.CvEnum.TemplateMatchingType matchingType = Emgu.CV.CvEnum.TemplateMatchingType.Ccoeff;
 
         public Form1()
@@ -25,8 +41,7 @@ namespace EmguTest
         }
 
         private void UsbCam_ImageGrabbed(object sender, EventArgs e)
-        {
-            currFrame = new Mat();      //原始當前畫面
+        {            
             Mat copyFrame = new Mat();  //含十字的畫面
 
             //取得畫面
@@ -46,6 +61,28 @@ namespace EmguTest
 
             //此延遲影響畫面更新率
             Thread.Sleep(100);
+
+            //Match
+            if (matTemplate.DataPointer != IntPtr.Zero)   //須有樣板Template才能做Match
+            {
+                CvInvoke.MatchTemplate(currFrame, matTemplate, matResult, matchingType);
+                CvInvoke.MinMaxLoc(matResult, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+                //Console.WriteLine(minVal + "," + maxVal);
+
+                rect = new Rectangle(maxLoc, matTemplate.Size);
+                rect2 = new Rectangle(minLoc, matTemplate.Size);
+
+                Mat srcCopy = new Mat();
+                //srcCopy.
+                currFrame.CopyTo(srcCopy);
+                CvInvoke.Rectangle(srcCopy, rect, color1, 3);
+                CvInvoke.Rectangle(srcCopy, rect2, color2, 1);
+                //CvInvoke.Add()
+
+
+                picBoxInvoke(pic_Result, srcCopy.ToBitmap());
+                //pic_Result.Image = ;
+            }
         }
 
         private void cmb_Method_SelectedIndexChanged(object sender, EventArgs e)
@@ -115,27 +152,23 @@ namespace EmguTest
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            Mat matResult = new Mat();
+            //IntensityTransformInvoke.GammaCorrection(currFrame, matResult, float.Parse(tb_GamaVal.Text));
+
             CvInvoke.MatchTemplate(currFrame, matTemplate, matResult, matchingType);
-
-
-            double minVal = 0.0;
-            double maxVal = 0.0;
-            Point minLoc = new Point();
-            Point maxLoc = new Point();
-
-            
             CvInvoke.MinMaxLoc(matResult, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+            //Console.WriteLine(minVal + "," + maxVal);
 
-            Console.WriteLine(minVal + "," + maxVal);
+            rect = new Rectangle(maxLoc, matTemplate.Size);
+            rect2 = new Rectangle(minLoc, matTemplate.Size);
 
-            Rectangle r = new Rectangle(maxLoc, matTemplate.Size);
-            Rectangle r2 = new Rectangle(minLoc, matTemplate.Size);
+            CvInvoke.Rectangle(currFrame, rect, color1, 3);
+            CvInvoke.Rectangle(currFrame, rect2, color2, 1);
+            //Mat matGray = new Mat();
+            //CvInvoke.CvtColor(currFrame, matGray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
 
-            CvInvoke.Rectangle(currFrame, r, new MCvScalar(255, 0, 0), 3);
-            CvInvoke.Rectangle(currFrame, r2, new MCvScalar(0, 255, 0), 1);
-
+            //CvInvoke.CLAHE(matGray, 40, matGray.Size, matResult);
             pic_Result.Image = currFrame.ToBitmap();
+
 
         }
         private void chk_Stream_On_CheckedChanged(object sender, EventArgs e)
@@ -224,6 +257,42 @@ namespace EmguTest
             bmp.UnlockBits(bmpData);
 
             return cvImage.Mat;
+        }
+
+        //invoke function
+        public void picBoxInvoke(PictureBox picBox,Image img)
+        {
+            if (picBox.InvokeRequired)
+            {
+                // Call this same method but append THREAD2 to the text
+                Action safeWrite = delegate { picBoxInvoke(picBox,img); };
+                picBox.Invoke(safeWrite);
+            }
+            else
+                picBox.Image = img;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {            
+            CvInvoke.CvtColor(currFrame, matResult, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+            pic_Result.Image = matResult.ToBitmap();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CvInvoke.CLAHE(matResult, double.Parse(tb_ClipLimit.Text), matResult.Size, matResult);
+            pic_Result.Image = matResult.ToBitmap();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            for(int i =0;i < matGray.Rows; i++)
+            {
+                for(int j = 0; j < matGray.Cols; j++)
+                {
+                    //matGray.at
+                }
+            }
         }
     }
 }
