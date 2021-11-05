@@ -1,6 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.IntensityTransform;
 using Emgu.CV.Structure;
+using Emgu.CV.UI;
 using System;
 using System.Drawing;
 using System.Threading;
@@ -59,29 +60,27 @@ namespace EmguTest
             //將加工後的畫面輸出到pictureBox上
             pic_Src.Image = copyFrame.ToBitmap();
 
+            //histogramBox1.ClearHistogram();
+            //histogramBox1.GenerateHistograms(copyFrame, 256);
+            //histogramBox1.Refresh();
+
             //此延遲影響畫面更新率
             Thread.Sleep(100);
 
             //Match
             if (matTemplate.DataPointer != IntPtr.Zero)   //須有樣板Template才能做Match
             {
-                CvInvoke.MatchTemplate(currFrame, matTemplate, matResult, matchingType);
-                CvInvoke.MinMaxLoc(matResult, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
-                //Console.WriteLine(minVal + "," + maxVal);
+                //CvInvoke.MatchTemplate(currFrame, matTemplate, matResult, matchingType);
+                //CvInvoke.MinMaxLoc(matResult, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
 
-                rect = new Rectangle(maxLoc, matTemplate.Size);
-                rect2 = new Rectangle(minLoc, matTemplate.Size);
+                //rect = new Rectangle(maxLoc, matTemplate.Size);
+                //rect2 = new Rectangle(minLoc, matTemplate.Size);
 
-                Mat srcCopy = new Mat();
-                //srcCopy.
-                currFrame.CopyTo(srcCopy);
-                CvInvoke.Rectangle(srcCopy, rect, color1, 3);
-                CvInvoke.Rectangle(srcCopy, rect2, color2, 1);
-                //CvInvoke.Add()
-
-
-                picBoxInvoke(pic_Result, srcCopy.ToBitmap());
-                //pic_Result.Image = ;
+                //Mat srcCopy = new Mat();
+                //currFrame.CopyTo(srcCopy);
+                //CvInvoke.Rectangle(srcCopy, rect, color1, 3);
+                //CvInvoke.Rectangle(srcCopy, rect2, color2, 1);                
+                //picBoxInvoke(pic_Result, srcCopy.ToBitmap());                
             }
         }
 
@@ -161,7 +160,7 @@ namespace EmguTest
             rect = new Rectangle(maxLoc, matTemplate.Size);
             rect2 = new Rectangle(minLoc, matTemplate.Size);
 
-            CvInvoke.Rectangle(currFrame, rect, color1, 3);
+            CvInvoke.Rectangle(currFrame, rect, color1, 1);
             CvInvoke.Rectangle(currFrame, rect2, color2, 1);
             //Mat matGray = new Mat();
             //CvInvoke.CvtColor(currFrame, matGray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
@@ -276,12 +275,21 @@ namespace EmguTest
         {            
             CvInvoke.CvtColor(currFrame, matResult, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
             pic_Result.Image = matResult.ToBitmap();
+
+            histogramBox2.ClearHistogram();
+            histogramBox2.GenerateHistograms(matResult, 256);
+            histogramBox2.Refresh();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            CvInvoke.CLAHE(matResult, double.Parse(tb_ClipLimit.Text), matResult.Size, matResult);
+            CvInvoke.CvtColor(currFrame, matResult, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+            CvInvoke.CLAHE(matResult, double.Parse(tb_ClipLimit.Text),new Size(int.Parse(tb_GridSize.Text), int.Parse(tb_GridSize.Text)), matResult);
             pic_Result.Image = matResult.ToBitmap();
+
+            histogramBox2.ClearHistogram();
+            histogramBox2.GenerateHistograms(matResult, 256);
+            histogramBox2.Refresh();
         }
 
         private void button5_Click(object sender, EventArgs e)

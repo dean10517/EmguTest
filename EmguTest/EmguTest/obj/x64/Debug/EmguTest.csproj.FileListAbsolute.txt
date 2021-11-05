@@ -46,3 +46,4 @@ D:\GIT\EmguTest\EmguTest\EmguTest\obj\x64\Debug\EmguTest.csproj.CoreCompileInput
 D:\GIT\EmguTest\EmguTest\EmguTest\obj\x64\Debug\EmguTest.csproj.CopyComplete
 D:\GIT\EmguTest\EmguTest\EmguTest\obj\x64\Debug\EmguTest.exe
 D:\GIT\EmguTest\EmguTest\EmguTest\obj\x64\Debug\EmguTest.pdb
+D:\GIT\EmguTest\EmguTest\EmguTest\bin\x64\Debug\Emgu.CV.Platform.NetFramework.dll
